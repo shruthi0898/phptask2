@@ -6,15 +6,14 @@ body
 #crop_wrapper
 {
 	position:relative;
-	margin-left:150px;
-	margin-top:50px;
-	width:600px;
-	height:400px;
+	margin : 15px;
+	width:500px;
+	height:250px;
 }
 #crop_wrapper img
 {
-	width:600px;
-	height:400px;
+	width:500px;
+	height:250px;
 }
 #crop_div
 {

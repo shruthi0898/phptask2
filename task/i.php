@@ -39,13 +39,14 @@
   <div id="crop_div">
   </div>
 </div>
+<br><br>
 
 <form method="post" action="do_crop.php" onsubmit="return crop();">
   <input type="hidden" value="" id="top" name="top">
   <input type="hidden" value="" id="left" name="left">
   <input type="hidden" value="" id="right" name="right">
   <input type="hidden" value="" id="bottom" name="bottom">
-  <input type="submit" name="crop_image">
+  <center><input type="submit" name="crop_image"></center>
 </form>
 
 </body>
