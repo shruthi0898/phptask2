@@ -128,14 +128,74 @@ $old_height = imagesy($image);
 
 if($old_width>$max_width || $old_height>$max_height)
 {
-  $ext= ".jpeg";
-  $imagename=date("d-m-Y")."-".time().$ext;
-  $target_path = "imgorg/".$imagename;
-  imagejpeg($image,$target_path, 90);
-  $query_upload="INSERT into images1 (path_org) VALUES ('".$target_path."')";
+  $scale=min($max_height/$old_height,$max_width/$old_width);
+  $new_width1  = ceil($scale*$old_width);
+  $new_height1 = ceil($scale*$old_height); 
 
-  mysql_query($query_upload) or die("error in $query_upload == ----> ".mysql_error()); 
-  include ("i.php");
+ 
+
+  #for images with height underflow
+  if($old_width<=$old_height)
+  {
+    $scale1 = $max_width/$old_width;
+    $scale2 = $max_height/$old_height;
+
+    // Get the new dimensions
+    $new_width  = ceil($scale1*$old_width);
+    $new_height = ceil($scale2*$old_height);
+    
+    // Create new empty image
+    $new = imagecreatetruecolor($new_width, $new_height);
+
+    $new1 = imagecreatetruecolor($new_width1, $new_height1);
+
+    // Resize old image into new
+    imagecopyresampled($new, $image, 
+    0, 0, 0, 0, 
+    $new_width, $new_height, $old_width, $old_height);
+    imagecopyresampled($new1, $image, 
+    0, 0, 0, 0, 
+    $new_width1, $new_height1, $old_width, $old_height);
+    include 'blur.php';
+    $w = imagesx($new1);
+    imagecopy($new, $new1, 50, 0, 0, 0, $w, 250); 
+    
+
+    $ext= ".jpeg";
+    $imagename=date("d-m-Y")."-".time().$ext;
+    $target_path = "img/".$imagename;
+    imagejpeg($new,$target_path, 90);
+
+
+
+    //insertion
+    $query_upload="INSERT into images1 (path) VALUES ('".$target_path."')";
+
+    mysql_query($query_upload) or die("error in $query_upload == ----> ".mysql_error()); 
+
+
+    include ("displaytrail.php");  
+
+  }
+
+  #for images with width overflow
+  else
+  {
+    $new1 = imagecreatetruecolor($new_width1, $new_height1);
+    imagecopyresampled($new1, $image, 
+    0, 0, 0, 0, 
+    $new_width1, $new_height1, $old_width, $old_height);
+
+    $ext= ".jpeg";
+    $imagename=date("d-m-Y")."-".time().$ext;
+    $target_path = "imgorg/".$imagename;
+    imagejpeg($new1,$target_path, 90);
+    $query_upload="INSERT into images1 (path_org) VALUES ('".$target_path."')";
+
+    mysql_query($query_upload) or die("error in $query_upload == ----> ".mysql_error()); 
+    include ("i.php");
+  }
+  
 }
 else
 {
