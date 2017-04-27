@@ -128,10 +128,7 @@ $old_height = imagesy($image);
 
 if($old_width>$max_width || $old_height>$max_height)
 {
-  $scale=min($max_height/$old_height,$max_width/$old_width);
-  $new_width1  = ceil($scale*$old_width);
-  $new_height1 = ceil($scale*$old_height); 
-
+  
 
   #for images with height underflow
   if($old_width<=$old_height)
@@ -142,7 +139,11 @@ if($old_width>$max_width || $old_height>$max_height)
     // Get the new dimensions
     $new_width  = ceil($scale1*$old_width);
     $new_height = ceil($scale2*$old_height);
-    
+
+    $scale=min($max_height/$old_height,$max_width/$old_width);
+    $new_width1  = ceil($scale*$old_width);
+    $new_height1 = ceil($scale*$old_height); 
+
     // Create new empty image
     $new = imagecreatetruecolor($new_width, $new_height);
 
@@ -157,7 +158,9 @@ if($old_width>$max_width || $old_height>$max_height)
     $new_width1, $new_height1, $old_width, $old_height);
     include 'blur.php';
     $w = imagesx($new1);
-    imagecopy($new, $new1, 50, 0, 0, 0, $w, 250); 
+    $hw = $w/2;
+    $offset = 150-$hw;
+    imagecopy($new, $new1, $offset, 0, 0, 0, $w, 250); 
     
 
     $ext= ".jpeg";
@@ -229,15 +232,19 @@ include 'blur.php';
 
 $w = imagesx($new1); 
 $h = imagesy($new1);
+$hw = $w/2;
+$hh = $h/2;
+$offset1 = 150-$hw;
+$offset2 = 125 -$hh;
 
 if($h==250)
 {
-imagecopy($new, $new1, 50, 0, 0, 0, $w, 250);
+imagecopy($new, $new1, $offset1, 0, 0, 0, $w, 250);
 
 }
 elseif($w==300) 
 {
-imagecopy($new, $new1, 0, 22, 0, 0, 300, $h);
+imagecopy($new, $new1, 0, $offset2, 0, 0, 300, $h);
 
 }
 
@@ -246,8 +253,6 @@ imagecopy($new, $new1, 0, 22, 0, 0, 300, $h);
   $imagename=date("d-m-Y")."-".time().$ext;
   $target_path = "img/".$imagename;
 imagejpeg($new,$target_path, 90);
-
-
 
 //insertion
   $query_upload="INSERT into images1 (path) VALUES ('".$target_path."')";
