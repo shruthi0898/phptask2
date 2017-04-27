@@ -8,12 +8,12 @@ body
 	position:relative;
 	margin : 15px;
 	width:500px;
-	height:250px;
+	height:200px;
 }
 #crop_wrapper img
 {
 	width:500px;
-	height:250px;
+	height:200px;
 }
 #crop_div
 {

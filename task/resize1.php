@@ -132,7 +132,6 @@ if($old_width>$max_width || $old_height>$max_height)
   $new_width1  = ceil($scale*$old_width);
   $new_height1 = ceil($scale*$old_height); 
 
- 
 
   #for images with height underflow
   if($old_width<=$old_height)
@@ -181,6 +180,10 @@ if($old_width>$max_width || $old_height>$max_height)
   #for images with width overflow
   else
   {
+    $scale=max($max_height/$old_height,$max_width/$old_width);
+    $new_width1  = ceil($scale*$old_width);
+    $new_height1 = ceil($scale*$old_height); 
+    
     $new1 = imagecreatetruecolor($new_width1, $new_height1);
     imagecopyresampled($new1, $image, 
     0, 0, 0, 0, 
