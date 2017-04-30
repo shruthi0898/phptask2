@@ -186,7 +186,7 @@ if($old_width>$max_width || $old_height>$max_height)
     $scale=max($max_height/$old_height,$max_width/$old_width);
     $new_width1  = ceil($scale*$old_width);
     $new_height1 = ceil($scale*$old_height); 
-    
+
     $new1 = imagecreatetruecolor($new_width1, $new_height1);
     imagecopyresampled($new1, $image, 
     0, 0, 0, 0, 
@@ -196,10 +196,27 @@ if($old_width>$max_width || $old_height>$max_height)
     $imagename=date("d-m-Y")."-".time().$ext;
     $target_path = "imgorg/".$imagename;
     imagejpeg($new1,$target_path, 90);
-    $query_upload="INSERT into images1 (path_org) VALUES ('".$target_path."')";
+
+    $scalee=min($max_height/$old_height,$max_width/$old_width);
+    $new_width11  = ceil($scalee*$old_width);
+    $new_height11 = ceil($scalee*$old_height); 
+    
+    $new11 = imagecreatetruecolor($new_width11, $new_height11);
+    imagecopyresampled($new11, $image, 
+    0, 0, 0, 0, 
+    $new_width11, $new_height11, $old_width, $old_height);
+
+    $ext= ".jpeg";
+    $imagename=date("d-m-Y")."-".time().$ext;
+    $target_path1 = "img1/".$imagename;
+    imagejpeg($new11,$target_path1, 90);
+
+
+    $query_upload="INSERT into images1 (path_org,path_org1) VALUES ('".$target_path."','".$target_path1."')";
 
     mysql_query($query_upload) or die("error in $query_upload == ----> ".mysql_error()); 
-    include ("i.php");
+
+    include("choose.php");
   }
   
 }
@@ -265,7 +282,6 @@ include ("displaytrail.php");
 mysql_close($dbhandle);
 }
   ?>
-
 
 </section>
 

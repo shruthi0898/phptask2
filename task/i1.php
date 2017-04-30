@@ -30,8 +30,7 @@
                 $con = mysql_connect('localhost', 'root'); 
                 if (!$con) { die('Could not connect: ' . mysql_error()); } 
                 mysql_select_db("saga", $con); 
-                $result = mysql_query("SELECT path_org FROM images1 where id=LAST_INSERT_ID()"); 
-                
+                $result = mysql_query("SELECT path_org FROM images1 where id=(select max(id) from images1)"); 
                 $row = mysql_fetch_array($result);
                     echo "<img src='".$row[0]."'/>";
                 mysql_close($con);
@@ -39,9 +38,10 @@
   <div id="crop_div">
   </div>
 </div>
+
 <br><br>
 
-<form method="post" action="do_crop.php" onsubmit="return crop();">
+<form method="post" action="do_crop1.php" onsubmit="return crop();">
   <input type="hidden" value="" id="top" name="top">
   <input type="hidden" value="" id="left" name="left">
   <input type="hidden" value="" id="right" name="right">
