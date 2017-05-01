@@ -7,12 +7,12 @@ body
 {
 	position:relative;
 	margin : 15px;
-	width:445px;
+	width:300px;
 	height:250px;
 }
 #crop_wrapper img
 {
-	width:445px;
+	width:300px;
 	height:250px;
 }
 #crop_div
@@ -29,18 +29,31 @@ body
 {
 	position:relative;
 	margin : 15px;
-	width:300px;
+	width:445px;
 	height:250px;
 }
 #crop_wrapper1 img
 {
-	width:300px;
+	width:445px;
 	height:250px;
+}
+
+#crop_wrapper2
+{
+	position:relative;
+	margin : 15px;
+	width:300px;
+	height:450px;
+}
+#crop_wrapper2 img
+{
+	width:300px;
+	height:450px;
 }
 #crop_div1
 {
 	width:300px;
-	height:168px;
+	height:250px;
 	border:1px dashed black;
 	position:absolute;
 	top:0px;

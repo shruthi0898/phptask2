@@ -25,12 +25,12 @@
 
 <body>
 
-<div id="crop_wrapper1">
+<div id="crop_wrapper2">
 <?php
                 $con = mysql_connect('localhost', 'root'); 
                 if (!$con) { die('Could not connect: ' . mysql_error()); } 
                 mysql_select_db("saga", $con); 
-                $result = mysql_query("SELECT path_org1 FROM images1 where id=(select max(id) from images1)"); 
+                $result = mysql_query("SELECT path_org FROM images1 where id=(select max(id) from images1)"); 
                 
                 $row = mysql_fetch_array($result);
                     echo "<img src='".$row[0]."'/>";

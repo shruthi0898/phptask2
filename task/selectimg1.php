@@ -63,7 +63,7 @@ if(isset($_POST['s_image']))
 
   if($ans==1)
   {
-    include("i1.php");
+    include("i2.php");
   }
   else
   {

@@ -59,7 +59,7 @@ if(isset($_POST['crop_image']))
  $con = mysql_connect('localhost', 'root'); 
                 if (!$con) { die('Could not connect: ' . mysql_error()); } 
                 mysql_select_db("saga", $con); 
-                $result = mysql_query("SELECT id,path_org1 FROM images1 where id= (select max(id) from images1)"); 
+                $result = mysql_query("SELECT id,path_org FROM images1 where id= (select max(id) from images1)"); 
                
                 $row = mysql_fetch_array($result);
                 

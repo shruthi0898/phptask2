@@ -1,0 +1,53 @@
+body
+{
+	margin:0px;
+	padding:0px;
+}
+#crop_wrapper
+{
+	position:relative;
+	margin : 15px;
+	width:300px;
+	height:250px;
+}
+#crop_wrapper img
+{
+	width:300px;
+	height:250px;
+}
+#crop_div
+{
+	width:300px;
+	height:250px;
+	border:1px dashed black;
+	position:absolute;
+	top:0px;
+	box-sizing:border-box;
+}
+
+#crop_wrapper1
+{
+	position:relative;
+	margin : 15px;
+	width:445px;
+	height:250px;
+}
+#crop_wrapper1 img
+{
+	width:445px;
+	height:250px;
+}
+
+
+#crop_wrapper2
+{
+	position:relative;
+	margin : 15px;
+	width:300px;
+	height:450px;
+}
+#crop_wrapper2 img
+{
+	width:300px;
+	height:450px;
+}

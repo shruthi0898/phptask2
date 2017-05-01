@@ -133,56 +133,6 @@ if($old_width>$max_width || $old_height>$max_height)
   #for images with height underflow
   if($old_width<=$old_height)
   {
-    $scale1 = $max_width/$old_width;
-    $scale2 = $max_height/$old_height;
-
-    // Get the new dimensions
-    $new_width  = ceil($scale1*$old_width);
-    $new_height = ceil($scale2*$old_height);
-
-    $scale=min($max_height/$old_height,$max_width/$old_width);
-    $new_width1  = ceil($scale*$old_width);
-    $new_height1 = ceil($scale*$old_height); 
-
-    // Create new empty image
-    $new = imagecreatetruecolor($new_width, $new_height);
-
-    $new1 = imagecreatetruecolor($new_width1, $new_height1);
-
-    // Resize old image into new
-    imagecopyresampled($new, $image, 
-    0, 0, 0, 0, 
-    $new_width, $new_height, $old_width, $old_height);
-    imagecopyresampled($new1, $image, 
-    0, 0, 0, 0, 
-    $new_width1, $new_height1, $old_width, $old_height);
-    include 'blur.php';
-    $w = imagesx($new1);
-    $hw = $w/2;
-    $offset = 150-$hw;
-    imagecopy($new, $new1, $offset, 0, 0, 0, $w, 250); 
-    
-
-    $ext= ".jpeg";
-    $imagename=date("d-m-Y")."-".time().$ext;
-    $target_path = "img/".$imagename;
-    imagejpeg($new,$target_path, 90);
-
-
-
-    //insertion
-    $query_upload="INSERT into images1 (path) VALUES ('".$target_path."')";
-
-    mysql_query($query_upload) or die("error in $query_upload == ----> ".mysql_error()); 
-
-
-    include ("displaytrail.php");  
-
-  }
-
-  #for images with width overflow
-  else
-  {
     $scale=max($max_height/$old_height,$max_width/$old_width);
     $new_width1  = ceil($scale*$old_width);
     $new_height1 = ceil($scale*$old_height); 
@@ -206,10 +156,107 @@ if($old_width>$max_width || $old_height>$max_height)
     0, 0, 0, 0, 
     $new_width11, $new_height11, $old_width, $old_height);
 
+
+    $scale1 = $max_width/$old_width;
+    $scale2 = $max_height/$old_height;
+    $scale=min($max_height/$old_height,$max_width/$old_width);
+
+    // Get the new dimensions
+    $new_width  = ceil($scale1*$old_width);
+    $new_height = ceil($scale2*$old_height);
+    // Create new empty image
+    $new = imagecreatetruecolor($new_width, $new_height);
+    // Resize old image into new
+    imagecopyresampled($new, $image, 
+    0, 0, 0, 0, 
+    $new_width, $new_height, $old_width, $old_height);
+    imagecopyresampled($new1, $image, 
+    0, 0, 0, 0, 
+    $new_width11, $new_height11, $old_width, $old_height);
+    include 'blur.php';
+
+    $w = imagesx($new11); 
+    $h = imagesy($new11);
+    $hw = $w/2;
+    $hh = $h/2;
+    $offset1 = 150-$hw;
+    $offset2 = 125 -$hh;
+    
+    imagecopy($new, $new11, $offset1, 0, 0, 0, $w, 250);
+
     $ext= ".jpeg";
     $imagename=date("d-m-Y")."-".time().$ext;
     $target_path1 = "img1/".$imagename;
-    imagejpeg($new11,$target_path1, 90);
+    imagejpeg($new,$target_path1, 90);
+
+
+    $query_upload="INSERT into images1 (path_org,path_org1) VALUES ('".$target_path."','".$target_path1."')";
+
+    mysql_query($query_upload) or die("error in $query_upload == ----> ".mysql_error()); 
+
+    include("choose1.php");
+  }
+
+  #for images with width overflow
+  else
+  {
+
+
+    $scale=max($max_height/$old_height,$max_width/$old_width);
+    $new_width1  = ceil($scale*$old_width);
+    $new_height1 = ceil($scale*$old_height); 
+
+    $new1 = imagecreatetruecolor($new_width1, $new_height1);
+    imagecopyresampled($new1, $image, 
+    0, 0, 0, 0, 
+    $new_width1, $new_height1, $old_width, $old_height);
+
+    $ext= ".jpeg";
+    $imagename=date("d-m-Y")."-".time().$ext;
+    $target_path = "imgorg/".$imagename;
+    imagejpeg($new1,$target_path, 90);
+
+    $scalee=min($max_height/$old_height,$max_width/$old_width);
+    $new_width11  = ceil($scalee*$old_width);
+    $new_height11 = ceil($scalee*$old_height); 
+    
+    $new11 = imagecreatetruecolor($new_width11, $new_height11);
+    imagecopyresampled($new11, $image, 
+    0, 0, 0, 0, 
+    $new_width11, $new_height11, $old_width, $old_height);
+
+
+    $scale1 = $max_width/$old_width;
+    $scale2 = $max_height/$old_height;
+    $scale=min($max_height/$old_height,$max_width/$old_width);
+
+    // Get the new dimensions
+    $new_width  = ceil($scale1*$old_width);
+    $new_height = ceil($scale2*$old_height);
+    // Create new empty image
+    $new = imagecreatetruecolor($new_width, $new_height);
+    // Resize old image into new
+    imagecopyresampled($new, $image, 
+    0, 0, 0, 0, 
+    $new_width, $new_height, $old_width, $old_height);
+    imagecopyresampled($new1, $image, 
+    0, 0, 0, 0, 
+    $new_width11, $new_height11, $old_width, $old_height);
+    include 'blur.php';
+
+    $w = imagesx($new11); 
+    $h = imagesy($new11);
+    $hw = $w/2;
+    $hh = $h/2;
+    $offset1 = 150-$hw;
+    $offset2 = 125 -$hh;
+
+    imagecopy($new, $new11, 0, $offset2, 0, 0, 300, $h);
+
+    $ext= ".jpeg";
+    $imagename=date("d-m-Y")."-".time().$ext;
+    $target_path1 = "img1/".$imagename;
+    imagejpeg($new,$target_path1, 90);
 
 
     $query_upload="INSERT into images1 (path_org,path_org1) VALUES ('".$target_path."','".$target_path1."')";

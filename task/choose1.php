@@ -9,7 +9,7 @@
 <body>
 
 <p>1.</p>
-<div id="crop_wrapper1">
+<div id="crop_wrapper2">
 <?php
                 $con = mysql_connect('localhost', 'root'); 
                 if (!$con) { die('Could not connect: ' . mysql_error()); } 
@@ -38,7 +38,7 @@
 
 <br><br>
 
-<form method="post" action="selectimg.php" onsubmit="return crop();">
+<form method="post" action="selectimg1.php" onsubmit="return crop();">
   <p>Select the image that you would like to choose?</p>
     <input type="radio" name="option" value="1" checked> 1. <br>
     <input type="radio" name="option" value="2"> 2. <br>
